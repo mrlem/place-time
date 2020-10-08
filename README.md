@@ -17,7 +17,6 @@ Enjoy!
 - map: position & zoom map to coarse location
 - map: allow to select places
 - log: add log display
-- core: create room database
 - core: create / update geofencing for each place
 - dashboard: add calendar with times for each place
 

@@ -19,5 +19,7 @@ class MapFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // TODO - init observations
+        viewModel.places
+            .observe(viewLifecycleOwner) { places -> println("loaded places = $places") }
     }
 }
