@@ -14,7 +14,7 @@ Enjoy!
 
 ## TODO
 
-- map: add a map
+- map: position & zoom map to coarse location
 - map: allow to select places
 - log: add log display
 - core: create room database

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.android.synthetic.main.fragment_map.*
 import org.mrlem.placetime.R
 
 class MapFragment : Fragment() {
@@ -19,6 +18,6 @@ class MapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.text.observe(viewLifecycleOwner, mapText::setText)
+        // TODO - init observations
     }
 }
