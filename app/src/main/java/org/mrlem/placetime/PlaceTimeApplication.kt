@@ -2,6 +2,8 @@ package org.mrlem.placetime
 
 import android.app.Application
 import androidx.room.Room
+import com.google.android.gms.location.GeofencingClient
+import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -19,6 +21,11 @@ class PlaceTimeApplication : Application() {
         GlobalScope.launch(Dispatchers.IO) {
             createSampleData()
         }
+
+        // geofencing client setup
+        geofencingClient = LocationServices.getGeofencingClient(this)
+
+        // TODO - add a service that selects places, and registers / unregisters them with the geofences client
     }
 
     private suspend fun createSampleData() {
@@ -32,5 +39,6 @@ class PlaceTimeApplication : Application() {
     companion object {
         lateinit var instance: PlaceTimeApplication
         lateinit var db: AppDatabase
+        lateinit var geofencingClient: GeofencingClient
     }
 }
