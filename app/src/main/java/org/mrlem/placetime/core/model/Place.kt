@@ -5,12 +5,13 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Place(
-    val label: String,
-    val latitude: Double,
-    val longitude: Double,
-    var geofenceRequestId: String? = null,
-    var toBeDeleted: Boolean = false
+    var label: String,
+    var latitude: Double,
+    var longitude: Double,
+    var radius: Float,
+    var status: GeofenceStatus = GeofenceStatus.TO_BE_CREATED
 ) {
 
     @PrimaryKey(autoGenerate = true) var uid: Int = 0
+    val geofenceId get() = uid.toString()
 }
