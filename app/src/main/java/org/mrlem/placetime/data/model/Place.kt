@@ -7,7 +7,9 @@ import androidx.room.PrimaryKey
 data class Place(
     val label: String,
     val latitude: Double,
-    val longitude: Double
+    val longitude: Double,
+    var geofenceRequestId: String? = null,
+    var toBeDeleted: Boolean = false
 ) {
 
     @PrimaryKey(autoGenerate = true) var uid: Int = 0
