@@ -1,4 +1,4 @@
-package org.mrlem.placetime.data.model
+package org.mrlem.placetime.core.model
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

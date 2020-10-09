@@ -5,8 +5,8 @@ import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.mrlem.placetime.data.model.AppDatabase
-import org.mrlem.placetime.data.model.Place
+import org.mrlem.placetime.core.model.AppDatabase
+import org.mrlem.placetime.core.model.Place
 
 class PlaceTimeApplication : Application() {
 

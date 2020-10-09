@@ -1,4 +1,4 @@
-package org.mrlem.placetime.data.model
+package org.mrlem.placetime.core.model
 
 import androidx.room.Dao
 import androidx.room.Delete

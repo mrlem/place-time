@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.mrlem.placetime.PlaceTimeApplication
-import org.mrlem.placetime.data.model.Place
+import org.mrlem.placetime.core.model.Place
 
 class MapViewModel : ViewModel() {
 
