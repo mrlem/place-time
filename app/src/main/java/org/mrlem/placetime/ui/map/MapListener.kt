@@ -7,4 +7,5 @@ interface MapListener {
 
     fun onPlaceCreateRequested(location: LatLng)
     fun onPlaceCreateHintRequested(location: LatLng)
+    fun onPlaceSelectRequested(place: Place)
 }

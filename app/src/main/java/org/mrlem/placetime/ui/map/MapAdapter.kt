@@ -15,8 +15,19 @@ class MapAdapter(private val map: GoogleMap, private val listener: MapListener) 
     private val markers = mutableMapOf<Int, Marker>()
 
     init {
+        // setup map events
         map.setOnMapLongClickListener { listener.onPlaceCreateRequested(it) }
         map.setOnMapClickListener { listener.onPlaceCreateHintRequested(it) }
+        map.setOnMarkerClickListener { marker ->
+            // find corresponding place
+            val placeId = markers.entries.firstOrNull { it.value == marker }?.key
+            val place = places.firstOrNull { it.uid == placeId }
+
+            place?.let {
+                listener.onPlaceSelectRequested(it)
+                true
+            } ?: false
+        }
     }
 
     fun updatePlaces(newPlaces: List<Place>) {

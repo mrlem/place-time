@@ -13,6 +13,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.snakydesign.livedataextensions.*
 import org.mrlem.placetime.R
+import org.mrlem.placetime.core.domain.model.Place
 
 class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
 
@@ -59,13 +60,19 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
         hint()
     }
 
+    override fun onPlaceSelectRequested(place: Place) {
+        Toast
+            .makeText(requireContext(), resources.getString(R.string.map_place, place.label), Toast.LENGTH_SHORT)
+            .show()
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // Internal
     ///////////////////////////////////////////////////////////////////////////
 
     private fun hint() {
         Toast
-            .makeText(requireContext(), R.string.map_create_hint, Toast.LENGTH_LONG)
+            .makeText(requireContext(), R.string.map_create_hint, Toast.LENGTH_SHORT)
             .show()
     }
 }

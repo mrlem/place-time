@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">PlaceTime</string>
-    <string name="title_map">Places</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_log">Log</string>
+    <string name="app_name" formatted="false">PlaceTime</string>
+    <string name="title_map" formatted="false">Places</string>
+    <string name="title_dashboard" formatted="false">Dashboard</string>
+    <string name="title_log" formatted="false">Log</string>
 
-    <string name="map_create_hint">Long press to add a place</string>
+    <string name="map_create_hint" formatted="false">Long press to add a place</string>
+    <string name="map_place">Place \"%s\"</string>
 </resources>
