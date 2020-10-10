@@ -72,5 +72,4 @@ class MapAdapter(private val map: GoogleMap, private val listener: MapListener) 
     fun center(location: LatLng) {
         map.animateCamera(CameraUpdateFactory.newLatLng(location))
     }
-
 }

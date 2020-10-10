@@ -58,4 +58,14 @@ class MapViewModel : BaseViewModel() {
             _selection.value = null
         }
     }
+
+    fun delete() {
+        _selection.value?.let {
+            placeRepository.delete(it)
+                .doOnSubscribe { Timber.d("deleting") }
+                .doOnComplete { Timber.i("deleted") }
+                .bind()
+        }
+        _selection.value = null
+    }
 }

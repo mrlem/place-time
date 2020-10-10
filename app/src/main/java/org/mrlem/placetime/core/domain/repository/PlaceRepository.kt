@@ -8,4 +8,5 @@ interface PlaceRepository {
 
     fun getAll(): Flowable<List<Place>>
     fun insert(place: Place): Completable
+    fun delete(place: Place): Completable
 }

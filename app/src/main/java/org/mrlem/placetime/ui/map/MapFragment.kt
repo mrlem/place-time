@@ -31,6 +31,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        // events
+        placeDelete.setOnClickListener { viewModel.delete() }
+
         // observations
         viewModel.places
             .distinctUntilChanged()

@@ -17,4 +17,9 @@ class PlaceRepositoryImpl(private val placeDao: PlaceDao) : PlaceRepository {
         placeDao
             .insert(place)
             .subscribeOn(Schedulers.io())
+
+    override fun delete(place: Place) =
+        placeDao
+            .delete(place)
+            .subscribeOn(Schedulers.io())
 }
