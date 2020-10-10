@@ -1,9 +1,6 @@
 package org.mrlem.placetime.core.data.local
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import org.mrlem.placetime.core.domain.model.Place
@@ -18,4 +15,7 @@ interface PlaceDao {
 
     @Delete
     fun delete(place: Place): Completable
+
+    @Update
+    fun update(place: Place): Completable
 }
