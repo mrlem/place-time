@@ -17,13 +17,9 @@ class MapAdapter(private val map: GoogleMap, private val listener: MapListener) 
     init {
         // setup map events
         map.setOnMapLongClickListener { listener.onPlaceCreateRequested(it) }
-        map.setOnMapClickListener { listener.onPlaceDeselect(it) }
+        map.setOnMapClickListener { listener.onPlaceDeselect() }
         map.setOnMarkerClickListener { marker ->
-            // find corresponding place
-            val placeId = markers.entries.firstOrNull { it.value == marker }?.key
-            val place = places.firstOrNull { it.uid == placeId }
-
-            place?.let {
+            marker.place?.let {
                 listener.onPlaceSelectRequested(it)
                 true
             } ?: false
@@ -71,5 +67,14 @@ class MapAdapter(private val map: GoogleMap, private val listener: MapListener) 
 
     fun center(location: LatLng) {
         map.animateCamera(CameraUpdateFactory.newLatLng(location))
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Internal
+    ///////////////////////////////////////////////////////////////////////////
+
+    private val Marker.place: Place? get() {
+        val placeId = markers.entries.firstOrNull { it.value == this }?.key
+        return places.firstOrNull { it.uid == placeId }
     }
 }

@@ -60,24 +60,24 @@ class MapViewModel : BaseViewModel() {
     }
 
     fun delete() {
-        _selection.value?.let {
-            placeRepository.delete(it)
-                .doOnSubscribe { Timber.d("deleting") }
-                .doOnComplete { Timber.i("deleted") }
-                .bind()
-        }
+        val place = _selection.value ?: return
+
+        placeRepository.delete(place)
+            .doOnSubscribe { Timber.d("deleting") }
+            .doOnComplete { Timber.i("deleted") }
+            .bind()
         _selection.value = null
     }
 
     fun updateName(name: String) {
-        _selection.value
+        val place = _selection.value
             ?.takeIf { it.label != name }
-            ?.let { place ->
-                place.label = name
-                placeRepository.update(place)
-                    .doOnSubscribe { Timber.d("updating") }
-                    .doOnComplete { Timber.i("updated") }
-                    .bind()
-        }
+            ?: return
+
+        place.label = name
+        placeRepository.update(place)
+            .doOnSubscribe { Timber.d("updating") }
+            .doOnComplete { Timber.i("updated") }
+            .bind()
     }
 }
