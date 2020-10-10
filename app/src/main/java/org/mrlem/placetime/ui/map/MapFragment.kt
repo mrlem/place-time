@@ -6,15 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.snakydesign.livedataextensions.skip
 import org.mrlem.placetime.R
 
-class MapFragment : Fragment(), OnMapReadyCallback {
+class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
 
     private val viewModel by lazy { ViewModelProvider(this).get(MapViewModel::class.java) }
     private lateinit var mapAdapter: MapAdapter
@@ -31,13 +30,22 @@ class MapFragment : Fragment(), OnMapReadyCallback {
    }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        mapAdapter = MapAdapter(googleMap)
+        mapAdapter = MapAdapter(googleMap, this)
+        var initDone = false
 
         // observations
         viewModel.places
+            .skip(1)
             .observe(viewLifecycleOwner) { places ->
                 mapAdapter.updatePlaces(places)
-                mapAdapter.center()
+                if (!initDone) {
+                    mapAdapter.center()
+                    initDone = true
+                }
             }
+    }
+
+    override fun onMapLongClick(location: LatLng) {
+        viewModel.createPlace(location)
     }
 }

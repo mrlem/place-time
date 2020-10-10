@@ -3,9 +3,10 @@ package org.mrlem.placetime.ui.map
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.mrlem.placetime.PlaceTimeApplication
+import org.mrlem.placetime.PlaceTimeApplication.Companion.db
 import org.mrlem.placetime.core.model.Place
 
 class MapViewModel : ViewModel() {
@@ -15,9 +16,17 @@ class MapViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            PlaceTimeApplication.db.placeDao().getAll()
+            db.placeDao()
+                .getAll()
                 .collect { _places.value = it }
 
+        }
+    }
+
+    fun createPlace(location: LatLng) {
+        viewModelScope.launch {
+            db.placeDao()
+                .insertAll(Place("New place", location.latitude, location.longitude, 100f))
         }
     }
 }
