@@ -1,8 +1,8 @@
-package org.mrlem.placetime.core.database
+package org.mrlem.placetime.core.data.local
 
 import androidx.room.TypeConverter
-import org.mrlem.placetime.core.model.Event
-import org.mrlem.placetime.core.model.GeofenceStatus
+import org.mrlem.placetime.core.domain.model.Event
+import org.mrlem.placetime.core.domain.model.GeofenceStatus
 
 class Converters {
     @TypeConverter

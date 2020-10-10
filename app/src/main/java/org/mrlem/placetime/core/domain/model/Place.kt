@@ -1,4 +1,4 @@
-package org.mrlem.placetime.core.model
+package org.mrlem.placetime.core.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

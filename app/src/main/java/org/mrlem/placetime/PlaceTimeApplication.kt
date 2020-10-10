@@ -7,8 +7,11 @@ import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.mrlem.placetime.core.database.AppDatabase
-import org.mrlem.placetime.core.model.Place
+import org.mrlem.placetime.core.data.local.AppDatabase
+import org.mrlem.placetime.core.data.repository.PlaceRepositoryImpl
+import org.mrlem.placetime.core.domain.repository.PlaceRepository
+import timber.log.Timber
+import timber.log.Timber.DebugTree
 
 class PlaceTimeApplication : Application() {
 
@@ -16,10 +19,14 @@ class PlaceTimeApplication : Application() {
         super.onCreate()
         instance = this
 
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        }
+
         // database setup & init
         db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "placetime-database").build()
         GlobalScope.launch(Dispatchers.IO) {
-            createSampleData()
+            db.clearAllTables()
         }
 
         // geofencing client setup
@@ -28,17 +35,11 @@ class PlaceTimeApplication : Application() {
         // TODO - add a service that selects places, and registers / unregisters them with the geofences client
     }
 
-    private suspend fun createSampleData() {
-        db.clearAllTables()
-        db.placeDao().insertAll(
-            Place("Travail", 48.1022243,-1.6747745, 100f),
-            Place("Maison", 48.045511,-1.5142382, 100f)
-        )
-    }
-
     companion object {
         lateinit var instance: PlaceTimeApplication
         lateinit var db: AppDatabase
         lateinit var geofencingClient: GeofencingClient
+
+        val placeRepository: PlaceRepository by lazy { PlaceRepositoryImpl(db.placeDao()) }
     }
 }

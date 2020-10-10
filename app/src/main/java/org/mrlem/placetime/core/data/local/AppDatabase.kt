@@ -1,9 +1,9 @@
-package org.mrlem.placetime.core.database
+package org.mrlem.placetime.core.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import org.mrlem.placetime.core.model.Place
+import org.mrlem.placetime.core.domain.model.Place
 
 @Database(entities = [Place::class], version = 1)
 @TypeConverters(Converters::class)

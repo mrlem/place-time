@@ -14,7 +14,6 @@ Enjoy!
 
 ## TODO
 
-- map: position & zoom map to coarse location
 - map: allow to select places
 - log: add log display
 - core: create / update geofencing for each place

@@ -8,7 +8,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import org.mrlem.placetime.core.model.Place
+import org.mrlem.placetime.core.domain.model.Place
 
 class MapAdapter(private val map: GoogleMap, private val listener: MapListener) {
 

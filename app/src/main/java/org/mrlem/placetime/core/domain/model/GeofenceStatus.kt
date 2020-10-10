@@ -1,4 +1,4 @@
-package org.mrlem.placetime.core.model
+package org.mrlem.placetime.core.domain.model
 
 enum class GeofenceStatus {
     TO_BE_CREATED,

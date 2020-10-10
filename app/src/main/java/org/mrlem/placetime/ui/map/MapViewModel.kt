@@ -1,32 +1,31 @@
 package org.mrlem.placetime.ui.map
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import org.mrlem.placetime.PlaceTimeApplication.Companion.db
-import org.mrlem.placetime.core.model.Place
+import org.mrlem.placetime.PlaceTimeApplication.Companion.placeRepository
+import org.mrlem.placetime.common.BaseViewModel
+import org.mrlem.placetime.common.addTo
+import org.mrlem.placetime.core.domain.model.Place
+import timber.log.Timber
 
-class MapViewModel : ViewModel() {
+class MapViewModel : BaseViewModel() {
 
     private val _places = MutableLiveData(emptyList<Place>())
     val places get() = _places
 
     init {
-        viewModelScope.launch {
-            db.placeDao()
-                .getAll()
-                .collect { _places.value = it }
-
-        }
+        placeRepository
+            .getAll()
+            .doOnNext { Timber.d("places: ${it.size}") }
+            .subscribe { _places.postValue(it) }
+            .addTo(disposeOnClear)
     }
 
     fun createPlace(location: LatLng) {
-        viewModelScope.launch {
-            db.placeDao()
-                .insertAll(Place("New place", location.latitude, location.longitude, 100f))
+        placeRepository
+            .insertAll(Place("new place", location.latitude, location.longitude, 100f))
+            .doOnComplete { Timber.d("place created") }
+            .subscribe()
+            .addTo(disposeOnClear)
         }
-    }
 }
