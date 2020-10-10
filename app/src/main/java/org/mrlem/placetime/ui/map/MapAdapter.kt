@@ -37,6 +37,7 @@ class MapAdapter(private val map: GoogleMap, private val listener: MapListener) 
 
                 override fun onPlaceRemoved(place: Place) {
                     markers.remove(place.uid)
+                        ?.remove()
                 }
             })
 
