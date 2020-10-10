@@ -6,4 +6,5 @@
 
     <string name="map_create_hint" formatted="false">Long press to add a place</string>
     <string name="map_place">Place \"%s\"</string>
+    <string name="map_delete" formatted="false">Delete</string>
 </resources>

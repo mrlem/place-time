@@ -17,7 +17,7 @@ class MapAdapter(private val map: GoogleMap, private val listener: MapListener) 
     init {
         // setup map events
         map.setOnMapLongClickListener { listener.onPlaceCreateRequested(it) }
-        map.setOnMapClickListener { listener.onPlaceCreateHintRequested(it) }
+        map.setOnMapClickListener { listener.onPlaceDeselect(it) }
         map.setOnMarkerClickListener { marker ->
             // find corresponding place
             val placeId = markers.entries.firstOrNull { it.value == marker }?.key
@@ -67,6 +67,10 @@ class MapAdapter(private val map: GoogleMap, private val listener: MapListener) 
                 map.moveCamera(CameraUpdateFactory.newLatLngBounds(it, 150))
             }
         }
+    }
+
+    fun center(location: LatLng) {
+        map.animateCamera(CameraUpdateFactory.newLatLng(location))
     }
 
 }

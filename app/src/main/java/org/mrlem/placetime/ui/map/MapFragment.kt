@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.GoogleMap
@@ -12,6 +13,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.snakydesign.livedataextensions.*
+import kotlinx.android.synthetic.main.fragment_map.*
 import org.mrlem.placetime.R
 import org.mrlem.placetime.core.domain.model.Place
 
@@ -31,17 +33,26 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
 
         // observations
         viewModel.places
-            .take(1)
-            .map { it.count() }
-            .observe(viewLifecycleOwner) { count ->
-                if (count == 0) hint()
-            }
-
-        viewModel.places
             .distinctUntilChanged()
             .observe(viewLifecycleOwner) { places ->
-                mapAdapter?.updatePlaces(places)
+                places?.let { mapAdapter?.updatePlaces(it) }
             }
+
+        viewModel.placeName
+            .distinctUntilChanged()
+            .observe(viewLifecycleOwner, placeName::setText)
+
+        viewModel.placePanelVisible
+            .distinctUntilChanged()
+            .observe(viewLifecycleOwner) { placePanel.isVisible = it }
+
+        viewModel.selectionLocation
+            .distinctUntilChanged()
+            .observe(viewLifecycleOwner) { it?.run { mapAdapter?.center(it) } }
+
+        viewModel.hintShown
+            .filter { shown -> shown == true }
+            .observe(viewLifecycleOwner) { hint() }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -56,14 +67,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
         viewModel.createPlace(location)
     }
 
-    override fun onPlaceCreateHintRequested(location: LatLng) {
-        hint()
+    override fun onPlaceDeselect(location: LatLng) {
+        viewModel.deselect()
     }
 
     override fun onPlaceSelectRequested(place: Place) {
-        Toast
-            .makeText(requireContext(), resources.getString(R.string.map_place, place.label), Toast.LENGTH_SHORT)
-            .show()
+        viewModel.select(place)
     }
 
     ///////////////////////////////////////////////////////////////////////////

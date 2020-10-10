@@ -4,9 +4,6 @@ import android.app.Application
 import androidx.room.Room
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.LocationServices
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.mrlem.placetime.core.data.local.AppDatabase
 import org.mrlem.placetime.core.data.repository.PlaceRepositoryImpl
 import org.mrlem.placetime.core.domain.repository.PlaceRepository
@@ -25,9 +22,6 @@ class PlaceTimeApplication : Application() {
 
         // database setup & init
         db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "placetime-database").build()
-        GlobalScope.launch(Dispatchers.IO) {
-            db.clearAllTables()
-        }
 
         // geofencing client setup
         geofencingClient = LocationServices.getGeofencingClient(this)

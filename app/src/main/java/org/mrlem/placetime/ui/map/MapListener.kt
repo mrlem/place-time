@@ -6,6 +6,6 @@ import org.mrlem.placetime.core.domain.model.Place
 interface MapListener {
 
     fun onPlaceCreateRequested(location: LatLng)
-    fun onPlaceCreateHintRequested(location: LatLng)
+    fun onPlaceDeselect(location: LatLng)
     fun onPlaceSelectRequested(place: Place)
 }

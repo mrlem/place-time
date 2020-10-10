@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".ui.map.MapFragment">
 
     <androidx.fragment.app.FragmentContainerView
@@ -15,5 +16,43 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/placeName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:clickable="true"
+        android:elevation="@dimen/grid_50"
+        android:focusable="true"
+        android:gravity="center|start"
+        android:minHeight="@dimen/grid_600"
+        android:paddingStart="@dimen/grid_200"
+        android:paddingEnd="@dimen/grid_200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Home" />
+
+    <ImageView
+        android:id="@+id/placeDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/grid_200"
+        android:contentDescription="@string/map_delete"
+        android:elevation="@dimen/grid_50"
+        android:src="@drawable/ic_delete_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@id/placeName"
+        app:layout_constraintEnd_toEndOf="@id/placeName"
+        app:layout_constraintTop_toTopOf="@id/placeName"
+        app:tint="@android:color/darker_gray" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/placePanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="placeName,placeDelete"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
