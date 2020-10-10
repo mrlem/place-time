@@ -72,7 +72,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
         viewModel.createPlace(location)
     }
 
-    override fun onPlaceDeselect() {
+    override fun onPlaceDeselectRequested() {
         if (placeName.hasFocus()) {
             placeName.clearFocus()
         } else {
@@ -82,6 +82,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
 
     override fun onPlaceSelectRequested(place: Place) {
         viewModel.select(place)
+    }
+
+    override fun onPlaceMoveRequested(place: Place, location: LatLng) {
+        viewModel.move(place, location)
     }
 
     ///////////////////////////////////////////////////////////////////////////

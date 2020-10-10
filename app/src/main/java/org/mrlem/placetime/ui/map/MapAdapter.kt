@@ -17,13 +17,21 @@ class MapAdapter(private val map: GoogleMap, private val listener: MapListener) 
     init {
         // setup map events
         map.setOnMapLongClickListener { listener.onPlaceCreateRequested(it) }
-        map.setOnMapClickListener { listener.onPlaceDeselect() }
+        map.setOnMapClickListener { listener.onPlaceDeselectRequested() }
         map.setOnMarkerClickListener { marker ->
             marker.place?.let {
                 listener.onPlaceSelectRequested(it)
                 true
             } ?: false
         }
+        map.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
+            override fun onMarkerDragEnd(marker: Marker) {
+                marker.place?.let { listener.onPlaceMoveRequested(it, marker.position) }
+            }
+
+            override fun onMarkerDragStart(marker: Marker) {}
+            override fun onMarkerDrag(marker: Marker) {}
+        })
     }
 
     fun updatePlaces(newPlaces: List<Place>) {
@@ -37,6 +45,7 @@ class MapAdapter(private val map: GoogleMap, private val listener: MapListener) 
                     val markerOptions = MarkerOptions()
                         .position(location)
                         .title(place.label)
+                        .draggable(true)
                     map.addMarker(markerOptions)
                         .also { markers[place.uid] = it }
                 }

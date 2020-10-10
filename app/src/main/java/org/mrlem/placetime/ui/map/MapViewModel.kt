@@ -76,8 +76,17 @@ class MapViewModel : BaseViewModel() {
 
         place.label = name
         placeRepository.update(place)
-            .doOnSubscribe { Timber.d("updating") }
-            .doOnComplete { Timber.i("updated") }
+            .doOnSubscribe { Timber.d("updating name") }
+            .doOnComplete { Timber.i("updated name") }
+            .bind()
+    }
+
+    fun move(place: Place, location: LatLng) {
+        place.latitude = location.latitude
+        place.longitude = location.longitude
+        placeRepository.update(place)
+            .doOnSubscribe { Timber.d("updating location") }
+            .doOnComplete { Timber.i("updated location") }
             .bind()
     }
 }
