@@ -23,7 +23,7 @@ class MapViewModel : BaseViewModel() {
 
     fun createPlace(location: LatLng) {
         placeRepository
-            .insertAll(Place("new place", location.latitude, location.longitude, 100f))
+            .insert(Place("new place", location.latitude, location.longitude, 100f))
             .doOnComplete { Timber.d("place created") }
             .subscribe()
             .addTo(disposeOnClear)

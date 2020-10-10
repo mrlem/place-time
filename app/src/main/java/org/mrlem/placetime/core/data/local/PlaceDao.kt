@@ -11,10 +11,10 @@ import org.mrlem.placetime.core.domain.model.Place
 @Dao
 interface PlaceDao {
     @Query("SELECT * FROM place")
-    fun getAll(): Flowable<List<Place>>
+    fun list(): Flowable<List<Place>>
 
     @Insert
-    fun insertAll(vararg places: Place): Completable
+    fun insert(places: Place): Completable
 
     @Delete
     fun delete(place: Place): Completable

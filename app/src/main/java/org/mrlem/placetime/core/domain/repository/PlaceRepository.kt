@@ -7,5 +7,5 @@ import org.mrlem.placetime.core.domain.model.Place
 interface PlaceRepository {
 
     fun getAll(): Flowable<List<Place>>
-    fun insertAll(vararg places: Place): Completable
+    fun insert(place: Place): Completable
 }

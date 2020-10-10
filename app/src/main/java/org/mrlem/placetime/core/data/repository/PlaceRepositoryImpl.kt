@@ -10,11 +10,11 @@ class PlaceRepositoryImpl(private val placeDao: PlaceDao) : PlaceRepository {
 
     override fun getAll(): Flowable<List<Place>> =
         placeDao
-            .getAll()
+            .list()
             .subscribeOn(Schedulers.io())
 
-    override fun insertAll(vararg places: Place) =
+    override fun insert(place: Place) =
         placeDao
-            .insertAll(*places)
+            .insert(place)
             .subscribeOn(Schedulers.io())
 }
