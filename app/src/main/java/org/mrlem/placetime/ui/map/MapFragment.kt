@@ -51,11 +51,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
         }
     }
 
-    override fun onMapLongClick(location: LatLng) {
+    override fun onPlaceCreateRequested(location: LatLng) {
         viewModel.createPlace(location)
     }
 
-    override fun onMapClick(location: LatLng) {
+    override fun onPlaceCreateHintRequested(location: LatLng) {
         hint()
     }
 

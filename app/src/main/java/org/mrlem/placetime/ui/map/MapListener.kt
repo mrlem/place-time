@@ -5,6 +5,6 @@ import org.mrlem.placetime.core.domain.model.Place
 
 interface MapListener {
 
-    fun onMapLongClick(location: LatLng)
-    fun onMapClick(location: LatLng)
+    fun onPlaceCreateRequested(location: LatLng)
+    fun onPlaceCreateHintRequested(location: LatLng)
 }
