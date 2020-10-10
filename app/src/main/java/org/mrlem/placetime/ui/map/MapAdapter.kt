@@ -18,6 +18,7 @@ class MapAdapter(private val map: GoogleMap, private val listener: MapListener) 
 
     init {
         map.setOnMapLongClickListener { listener.onMapLongClick(it) }
+        map.setOnMapClickListener { listener.onMapClick(it) }
     }
 
     fun updatePlaces(newPlaces: List<Place>) {

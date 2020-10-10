@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.snakydesign.livedataextensions.distinctUntilChanged
-import com.snakydesign.livedataextensions.skip
+import com.snakydesign.livedataextensions.*
 import org.mrlem.placetime.R
 
 class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
@@ -30,6 +30,13 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
 
         // observations
         viewModel.places
+            .take(1)
+            .map { it.count() }
+            .observe(viewLifecycleOwner) { count ->
+                if (count == 0) hint()
+            }
+
+        viewModel.places
             .distinctUntilChanged()
             .observe(viewLifecycleOwner) { places ->
                 mapAdapter?.updatePlaces(places)
@@ -46,5 +53,19 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
 
     override fun onMapLongClick(location: LatLng) {
         viewModel.createPlace(location)
+    }
+
+    override fun onMapClick(location: LatLng) {
+        hint()
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Internal
+    ///////////////////////////////////////////////////////////////////////////
+
+    private fun hint() {
+        Toast
+            .makeText(requireContext(), R.string.map_create_hint, Toast.LENGTH_LONG)
+            .show()
     }
 }

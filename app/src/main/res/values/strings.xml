@@ -3,4 +3,6 @@
     <string name="title_map">Places</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_log">Log</string>
+
+    <string name="map_create_hint">Long press to add a place</string>
 </resources>

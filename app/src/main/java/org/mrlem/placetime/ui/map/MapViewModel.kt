@@ -9,7 +9,7 @@ import timber.log.Timber
 
 class MapViewModel : BaseViewModel() {
 
-    private val _places = MutableLiveData(emptyList<Place>())
+    private val _places = MutableLiveData<List<Place>>()
     val places get() = _places
 
     init {
