@@ -41,7 +41,7 @@ class MapViewModel : BaseViewModel() {
 
     fun createPlace(location: LatLng) {
         placeRepository
-            .insert(Place("new place", location.latitude, location.longitude, 100f))
+            .insert(Place("New place", location.latitude, location.longitude, 100f))
             .doOnSubscribe { Timber.d("creating") }
             .doOnComplete { Timber.i("created") }
             .bind()
@@ -67,5 +67,17 @@ class MapViewModel : BaseViewModel() {
                 .bind()
         }
         _selection.value = null
+    }
+
+    fun updateName(name: String) {
+        _selection.value
+            ?.takeIf { it.label != name }
+            ?.let { place ->
+                place.label = name
+                placeRepository.update(place)
+                    .doOnSubscribe { Timber.d("updating") }
+                    .doOnComplete { Timber.i("updated") }
+                    .bind()
+        }
     }
 }

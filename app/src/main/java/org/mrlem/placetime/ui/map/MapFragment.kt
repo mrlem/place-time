@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.snakydesign.livedataextensions.*
 import kotlinx.android.synthetic.main.fragment_map.*
 import org.mrlem.placetime.R
+import org.mrlem.placetime.common.setOnDoneEditingListener
 import org.mrlem.placetime.core.domain.model.Place
 
 class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
@@ -33,6 +34,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
 
         // events
         placeDelete.setOnClickListener { viewModel.delete() }
+        placeName.setOnDoneEditingListener { viewModel.updateName(it) }
 
         // observations
         viewModel.places
@@ -71,7 +73,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
     }
 
     override fun onPlaceDeselect(location: LatLng) {
-        viewModel.deselect()
+        if (placeName.hasFocus()) {
+            placeName.clearFocus()
+        } else {
+            viewModel.deselect()
+        }
     }
 
     override fun onPlaceSelectRequested(place: Place) {
