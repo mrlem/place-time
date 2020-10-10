@@ -15,7 +15,6 @@ class MapAdapter(private val map: GoogleMap, private val listener: MapListener) 
     private var bounds: LatLngBounds? = null
     private var places = emptyList<Place>()
     private val markers = mutableMapOf<Int, Marker>()
-    private var initDone = false
 
     init {
         map.setOnMapLongClickListener { listener.onMapLongClick(it) }
