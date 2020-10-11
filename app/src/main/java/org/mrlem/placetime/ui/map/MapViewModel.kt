@@ -1,5 +1,6 @@
 package org.mrlem.placetime.ui.map
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.LatLng
 import com.snakydesign.livedataextensions.map
@@ -11,15 +12,15 @@ import timber.log.Timber
 class MapViewModel : BaseViewModel() {
 
     private val _places = MutableLiveData<List<Place>?>()
-    val places get() = _places
+    val places = _places as LiveData<List<Place>?>
 
     private val _selection = MutableLiveData<Place?>()
-    val placeName get() = _selection.map { it?.label }
-    val placePanelVisible get() = _selection.map { it != null }
-    val selectionLocation get() = _selection.map { it?.run { LatLng(latitude, longitude) } }
+    val placeName = _selection.map { it?.label }
+    val placePanelVisible = _selection.map { it != null }
+    val selectionLocation = _selection.map { it?.run { LatLng(latitude, longitude) } }
 
     private val _hintShown = MutableLiveData(false)
-    val hintShown get() = _hintShown
+    val hintShown = _hintShown as LiveData<Boolean>
 
     init {
         val places = placeRepository
