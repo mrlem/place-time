@@ -45,7 +45,7 @@
             android:inputType="textCapWords|textNoSuggestions|textVisiblePassword"
             android:paddingStart="@dimen/grid_200"
             android:paddingEnd="@dimen/grid_200"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="?android:attr/textColorSecondary"
             tools:text="Home" />
 
         <ImageView
@@ -59,7 +59,7 @@
             android:focusable="true"
             android:padding="@dimen/grid_150"
             android:src="@drawable/ic_delete_black_24dp"
-            app:tint="@android:color/darker_gray" />
+            app:tint="?android:attr/textColorSecondary" />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
