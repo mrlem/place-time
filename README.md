@@ -14,7 +14,7 @@ Enjoy!
 
 ## TODO
 
-- map: allow to select places
+- map: display geofence radius
 - log: add log display
 - core: create / update geofencing for each place
 - dashboard: add calendar with times for each place
