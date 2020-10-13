@@ -8,6 +8,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import org.mrlem.placetime.core.domain.model.Place
 
+// TODO - enable GPS
 class MapAdapter(private val map: GoogleMap, private val listener: MapListener) {
 
     private var bounds: LatLngBounds? = null

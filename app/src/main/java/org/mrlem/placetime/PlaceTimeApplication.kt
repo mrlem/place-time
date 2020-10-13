@@ -5,7 +5,10 @@ import androidx.room.Room
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.LocationServices
 import org.mrlem.placetime.core.data.local.AppDatabase
+import org.mrlem.placetime.core.data.remote.GeofenceAPI
+import org.mrlem.placetime.core.data.repository.EventRepositoryImpl
 import org.mrlem.placetime.core.data.repository.PlaceRepositoryImpl
+import org.mrlem.placetime.core.domain.repository.EventRepository
 import org.mrlem.placetime.core.domain.repository.PlaceRepository
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -31,9 +34,12 @@ class PlaceTimeApplication : Application() {
 
     companion object {
         lateinit var instance: PlaceTimeApplication
+
         lateinit var db: AppDatabase
         lateinit var geofencingClient: GeofencingClient
 
-        val placeRepository: PlaceRepository by lazy { PlaceRepositoryImpl(db.placeDao()) }
+        val geofenceAPI by lazy { GeofenceAPI(instance, geofencingClient) }
+        val placeRepository: PlaceRepository by lazy { PlaceRepositoryImpl(db.placeDao(), geofenceAPI) }
+        val eventRepository: EventRepository by lazy { EventRepositoryImpl(db.eventDao()) }
     }
 }

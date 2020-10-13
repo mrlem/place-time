@@ -11,7 +11,7 @@ interface PlaceDao {
     fun list(): Flowable<List<Place>>
 
     @Insert
-    fun insert(places: Place): Completable
+    fun insert(place: Place): Completable
 
     @Delete
     fun delete(place: Place): Completable

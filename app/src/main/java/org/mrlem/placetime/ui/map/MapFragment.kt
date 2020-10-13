@@ -1,10 +1,16 @@
 package org.mrlem.placetime.ui.map
 
+import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.content.pm.PackageManager.PERMISSION_DENIED
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresPermission
+import androidx.core.app.ActivityCompat.checkSelfPermission
+import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -31,6 +37,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
         mapAdapter = null
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        if (checkSelfPermission(requireContext(), ACCESS_FINE_LOCATION) != PERMISSION_GRANTED) {
+            requestPermissions(requireActivity(), arrayOf(ACCESS_FINE_LOCATION), 0)
+            return
+        }
 
         // events
         placeDelete.setOnClickListener { viewModel.delete() }
@@ -60,6 +71,13 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
             .observe(viewLifecycleOwner) { hint() }
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 0 && grantResults.getOrElse(0) { PERMISSION_DENIED } == PERMISSION_GRANTED) {
+            showPermissionWarning()
+        }
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
         mapAdapter = MapAdapter(googleMap, this)
         viewModel.places.value?.let { places -> mapAdapter?.updatePlaces(places) }
@@ -68,6 +86,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
         }
     }
 
+    @RequiresPermission(ACCESS_FINE_LOCATION)
     override fun onPlaceCreateRequested(location: LatLng) {
         viewModel.createPlace(location)
     }
@@ -91,6 +110,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
     ///////////////////////////////////////////////////////////////////////////
     // Internal
     ///////////////////////////////////////////////////////////////////////////
+
+    private fun showPermissionWarning() {
+        Toast
+            .makeText(requireContext(), R.string.map_permission_warn, Toast.LENGTH_SHORT)
+            .show()
+    }
 
     private fun hint() {
         Toast

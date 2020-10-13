@@ -1,5 +1,7 @@
 package org.mrlem.placetime.ui.map
 
+import android.Manifest.permission.ACCESS_FINE_LOCATION
+import androidx.annotation.RequiresPermission
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.LatLng
@@ -8,6 +10,8 @@ import org.mrlem.placetime.PlaceTimeApplication.Companion.placeRepository
 import org.mrlem.placetime.common.BaseViewModel
 import org.mrlem.placetime.core.domain.model.Place
 import timber.log.Timber
+
+// TODO - error reporting
 
 class MapViewModel : BaseViewModel() {
 
@@ -24,7 +28,7 @@ class MapViewModel : BaseViewModel() {
 
     init {
         val places = placeRepository
-            .getAll()
+            .list()
 
         // places to show
         places
@@ -40,6 +44,7 @@ class MapViewModel : BaseViewModel() {
             .bind()
     }
 
+    @RequiresPermission(ACCESS_FINE_LOCATION)
     fun createPlace(location: LatLng) {
         placeRepository
             .insert(Place("New place", location.latitude, location.longitude, 100f))
@@ -66,8 +71,9 @@ class MapViewModel : BaseViewModel() {
         placeRepository.delete(place)
             .doOnSubscribe { Timber.d("deleting") }
             .doOnComplete { Timber.i("deleted") }
+            .doOnComplete { _selection.postValue(null) }
+            .doOnError { Timber.e(it, "failed to delete") }
             .bind()
-        _selection.value = null
     }
 
     fun updateName(name: String) {

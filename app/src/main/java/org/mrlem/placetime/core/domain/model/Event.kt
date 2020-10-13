@@ -5,10 +5,12 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Event(
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    val placeId: Int, // TODO - relation
-    val type: Type
+    val placeUid: Int,
+    val type: Type,
+    val time: Long = System.currentTimeMillis()
 ) {
+
+    @PrimaryKey(autoGenerate = true) var uid: Long = 0
 
     enum class Type {
         ENTER,

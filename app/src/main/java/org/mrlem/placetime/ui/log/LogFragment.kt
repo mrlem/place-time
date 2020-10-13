@@ -12,6 +12,7 @@ import org.mrlem.placetime.R
 class LogFragment : Fragment() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(LogViewModel::class.java) }
+    private val adapter = EventsAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_log, container, false)
@@ -19,6 +20,7 @@ class LogFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.text.observe(viewLifecycleOwner, logText::setText)
+        events.adapter = adapter
+        viewModel.events.observe(viewLifecycleOwner, adapter::updateEvents)
     }
 }
