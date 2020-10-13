@@ -8,4 +8,6 @@
     <string name="map_place">Place \"%s\"</string>
     <string name="map_delete" formatted="false">Delete</string>
     <string name="map_permission_warn" formatted="false">Won\'t work without location permissions</string>
+
+    <string name="log_format">%s %s</string>
 </resources>
