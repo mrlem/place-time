@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.mrlem.placetime.R
-import org.mrlem.placetime.core.domain.model.Event
+import org.mrlem.placetime.core.domain.model.EventAndPlace
 
 class EventsAdapter : RecyclerView.Adapter<ViewHolder>() {
 
-    private val events = mutableListOf<Event>()
+    private val events = mutableListOf<EventAndPlace>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -23,7 +23,7 @@ class EventsAdapter : RecyclerView.Adapter<ViewHolder>() {
 
     override fun getItemCount() = events.count()
 
-    fun updateEvents(events: List<Event>) {
+    fun updateEvents(events: List<EventAndPlace>) {
         this.events.apply {
             clear()
             addAll(events)

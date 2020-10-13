@@ -28,8 +28,6 @@ class PlaceTimeApplication : Application() {
 
         // geofencing client setup
         geofencingClient = LocationServices.getGeofencingClient(this)
-
-        // TODO - add a service that selects places, and registers / unregisters them with the geofences client
     }
 
     companion object {
