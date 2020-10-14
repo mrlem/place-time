@@ -6,6 +6,11 @@ import org.mrlem.placetime.common.BaseViewModel
 
 class DashboardViewModel : BaseViewModel() {
 
-    private val _text = MutableLiveData("This is dashboard Fragment")
-    val text = _text as LiveData<String>
+    private val _place = MutableLiveData("Work")
+    val place = _place as LiveData<String>
+
+    private val _timeToday = MutableLiveData("0:00:00")
+    val timeToday = _timeToday as LiveData<String>
+
+    // TODO - calculate & update
 }

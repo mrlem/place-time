@@ -19,6 +19,7 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.text.observe(viewLifecycleOwner, textDashboard::setText)
+        viewModel.place.observe(viewLifecycleOwner, place::setText)
+        viewModel.timeToday.observe(viewLifecycleOwner, timeToday::setText)
     }
 }

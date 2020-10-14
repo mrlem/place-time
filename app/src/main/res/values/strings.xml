@@ -10,4 +10,7 @@
     <string name="map_permission_warn" formatted="false">Won\'t work without location permissions</string>
 
     <string name="log_format">%s %s</string>
+
+    <string name="dashboard_today" formatted="false">Today</string>
+    <string name="dashboard_place">You are currently at %s.</string>
 </resources>
