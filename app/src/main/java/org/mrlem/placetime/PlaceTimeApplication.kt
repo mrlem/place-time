@@ -37,7 +37,7 @@ class PlaceTimeApplication : Application() {
         lateinit var geofencingClient: GeofencingClient
 
         val geofenceAPI by lazy { GeofenceAPI(instance, geofencingClient) }
-        val placeRepository: PlaceRepository by lazy { PlaceRepositoryImpl(db.placeDao(), geofenceAPI) }
+        val placeRepository: PlaceRepository by lazy { PlaceRepositoryImpl(db.placeDao(), db.eventDao(), geofenceAPI) }
         val eventRepository: EventRepository by lazy { EventRepositoryImpl(db.eventDao()) }
     }
 }

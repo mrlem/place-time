@@ -5,6 +5,7 @@ import androidx.annotation.RequiresPermission
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
+import org.mrlem.placetime.core.data.local.EventDao
 import org.mrlem.placetime.core.data.local.PlaceDao
 import org.mrlem.placetime.core.data.remote.GeofenceAPI
 import org.mrlem.placetime.core.domain.model.GeofenceStatus
@@ -13,6 +14,7 @@ import org.mrlem.placetime.core.domain.repository.PlaceRepository
 
 class PlaceRepositoryImpl(
     private val placeDao: PlaceDao,
+    private val eventDao: EventDao,
     private val geofenceAPI: GeofenceAPI
 ) : PlaceRepository {
 
@@ -39,6 +41,10 @@ class PlaceRepositoryImpl(
             .subscribeOn(Schedulers.io())
             .andThen(
                 geofenceAPI.deleteGeofence(place)
+                    .subscribeOn(Schedulers.io())
+            )
+            .andThen(
+                eventDao.deleteForPlace(place.uid)
                     .subscribeOn(Schedulers.io())
             )
             .andThen(
