@@ -1,5 +1,6 @@
 package org.mrlem.placetime.core.domain.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -12,6 +13,9 @@ data class Place(
     var status: GeofenceStatus = GeofenceStatus.TO_BE_CREATED
 ) {
 
-    @PrimaryKey(autoGenerate = true) var uid: Int = 0
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name="placeUid")
+    var uid: Int = 0
+
     val geofenceId get() = uid.toString()
 }

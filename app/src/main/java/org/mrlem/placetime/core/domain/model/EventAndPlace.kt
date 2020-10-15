@@ -7,8 +7,8 @@ data class EventAndPlace(
     @Embedded
     val event: Event,
     @Relation(
-        parentColumn = "placeUid",
-        entityColumn = "uid"
+        parentColumn = "eventPlaceUid",
+        entityColumn = "placeUid"
     )
     val place: Place?
 )

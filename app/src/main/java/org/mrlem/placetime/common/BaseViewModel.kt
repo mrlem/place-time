@@ -4,6 +4,7 @@ import androidx.annotation.CallSuper
 import androidx.lifecycle.ViewModel
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
@@ -15,6 +16,12 @@ open class BaseViewModel : ViewModel() {
     override fun onCleared() {
         disposeOnClear.clear()
     }
+
+    fun <T> Observable<T>.bind() = subscribe(
+        { Unit },
+        { Timber.e(it, "viewmodel observable failed") }
+    )
+        .addTo(disposeOnClear)
 
     fun <T> Flowable<T>.bind() = subscribe(
         { Unit },
