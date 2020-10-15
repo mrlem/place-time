@@ -4,6 +4,7 @@ import android.Manifest
 import androidx.annotation.RequiresPermission
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 import io.reactivex.schedulers.Schedulers
 import org.mrlem.placetime.core.data.local.EventDao
 import org.mrlem.placetime.core.data.local.PlaceDao
@@ -73,4 +74,8 @@ class PlaceRepositoryImpl(
                 placeDao.update(place.apply { status = GeofenceStatus.CREATED })
                     .subscribeOn(Schedulers.io())
             )
+
+    override fun current(): Maybe<Place> =
+        placeDao.current()
+            .subscribeOn(Schedulers.io())
 }
