@@ -4,7 +4,7 @@ import android.Manifest
 import androidx.annotation.RequiresPermission
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import io.reactivex.Maybe
+import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import org.mrlem.placetime.core.data.local.EventDao
 import org.mrlem.placetime.core.data.local.PlaceDao
@@ -22,6 +22,10 @@ class PlaceRepositoryImpl(
     override fun list(): Flowable<List<Place>> =
         placeDao
             .list()
+            .subscribeOn(Schedulers.io())
+
+    override fun current(): Observable<Place> =
+        placeDao.current()
             .subscribeOn(Schedulers.io())
 
     @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -74,8 +78,4 @@ class PlaceRepositoryImpl(
                 placeDao.update(place.apply { status = GeofenceStatus.CREATED })
                     .subscribeOn(Schedulers.io())
             )
-
-    override fun current(): Maybe<Place> =
-        placeDao.current()
-            .subscribeOn(Schedulers.io())
 }

@@ -7,7 +7,7 @@ import org.mrlem.placetime.common.BaseViewModel
 
 class DashboardViewModel : BaseViewModel() {
 
-    private val _place = MutableLiveData("Work")
+    private val _place = MutableLiveData<String>()
     val place = _place as LiveData<String>
 
     private val _timeToday = MutableLiveData("0:00:00")
@@ -15,7 +15,7 @@ class DashboardViewModel : BaseViewModel() {
 
     init {
         placeRepository.current()
-            .doOnSuccess { _place.postValue(it.label) }
+            .doOnNext { _place.postValue(it.label) }
             .subscribe()
     }
 
