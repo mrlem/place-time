@@ -10,5 +10,5 @@ data class EventAndPlace(
         parentColumn = "placeUid",
         entityColumn = "uid"
     )
-    val place: Place
+    val place: Place?
 )

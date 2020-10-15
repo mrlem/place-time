@@ -12,7 +12,7 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(event: EventAndPlace) {
         val res = itemView.context.resources
-        itemView.description.text = res.getString(R.string.log_format, event.place.label, event.event.type)
+        itemView.description.text = res.getString(R.string.log_format, event.place?.label, event.event.type)
         itemView.time.text = formatter.format(Date(event.event.time))
     }
 

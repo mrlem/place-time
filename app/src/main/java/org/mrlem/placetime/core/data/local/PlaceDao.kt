@@ -11,7 +11,7 @@ interface PlaceDao {
     @Query("SELECT * FROM place")
     fun list(): Flowable<List<Place>>
 
-    @Query("SELECT * FROM place INNER JOIN event ORDER BY time DESC LIMIT 1")
+    @Query("SELECT * FROM place INNER JOIN event ON (placeUid = place.uid) ORDER BY time DESC LIMIT 1")
     fun current(): Observable<Place>
 
     @Insert
