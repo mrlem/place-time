@@ -40,7 +40,7 @@ class MapViewModel : BaseViewModel() {
         places
             .take(1)
             .filter { it.count() == 0 }
-            .doOnNext { _hintShown.value = true }
+            .doOnNext { _hintShown.postValue(true) }
             .bind()
     }
 
