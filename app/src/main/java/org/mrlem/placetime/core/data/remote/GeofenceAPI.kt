@@ -34,7 +34,7 @@ class GeofenceAPI(
                 place.radius
             )
             .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT)
-            .setNotificationResponsiveness(TimeUnit.MINUTES.toMillis(5).toInt())
+            .setNotificationResponsiveness(TimeUnit.MINUTES.toMillis(3).toInt())
             .setExpirationDuration(TimeUnit.DAYS.toMillis(45))
             .build()
         val request = getGeofencingRequest(listOf(geofence))
