@@ -79,7 +79,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapListener {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        mapAdapter = MapAdapter(googleMap, this)
+        mapAdapter = MapAdapter(requireContext(), googleMap, this)
         viewModel.places.value?.let { places -> mapAdapter?.updatePlaces(places) }
         googleMap.setOnMapLoadedCallback {
             mapAdapter?.center(true)

@@ -1,19 +1,22 @@
 package org.mrlem.placetime.ui.map
 
+import android.content.Context
+import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
+import org.mrlem.placetime.R
 import org.mrlem.placetime.core.domain.model.Place
 
 // TODO - enable GPS
-class MapAdapter(private val map: GoogleMap, private val listener: MapListener) {
+class MapAdapter(context: Context, private val map: GoogleMap, private val listener: MapListener) {
 
     private var bounds: LatLngBounds? = null
     private var places = emptyList<Place>()
     private val markers = mutableMapOf<Int, Marker>()
+    private val circles = mutableMapOf<Int, Circle>()
+    private val circleFillColor = ContextCompat.getColor(context, R.color.colorRange)
+    private val circleStrokeColor = ContextCompat.getColor(context, R.color.colorPrimary)
 
     init {
         // setup map events
@@ -49,11 +52,25 @@ class MapAdapter(private val map: GoogleMap, private val listener: MapListener) 
                         .draggable(true)
                     map.addMarker(markerOptions)
                         .also { markers[place.uid] = it }
+
+                    // create circle
+                    val circleOptions = CircleOptions()
+                        .center(location)
+                        .radius(place.radius.toDouble())
+                        .strokeWidth(1f)
+                        .strokeColor(circleStrokeColor)
+                        .fillColor(circleFillColor)
+                    map.addCircle(circleOptions)
+                        .also { circles[place.uid] = it }
                 }
 
                 override fun onPlaceRemoved(place: Place) {
                     // remove marker
                     markers.remove(place.uid)
+                        ?.remove()
+
+                    // remove circle
+                    circles.remove(place.uid)
                         ?.remove()
                 }
             })
