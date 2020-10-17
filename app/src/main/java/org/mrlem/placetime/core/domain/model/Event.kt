@@ -18,7 +18,6 @@ data class Event(
 
     enum class Type {
         ENTER,
-        DWELL,
         EXIT
     }
 }

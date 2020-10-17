@@ -46,7 +46,6 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
     private fun Int.geofenceTransitionToEventType() = when (this) {
         GEOFENCE_TRANSITION_ENTER -> Event.Type.ENTER
         GEOFENCE_TRANSITION_EXIT -> Event.Type.EXIT
-        GEOFENCE_TRANSITION_DWELL -> Event.Type.DWELL
         else -> null
     }
 }
