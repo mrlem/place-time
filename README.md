@@ -14,9 +14,7 @@ Enjoy!
 
 ## TODO
 
-- map: display geofence radius
-- log: display events
-- geofencing: create / update fences
+- geofencing: update fences
 - geofencing: log events
 - dashboard: add stats
 
