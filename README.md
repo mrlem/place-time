@@ -17,6 +17,7 @@ Enjoy!
 - improve geofences / map synchronization
 - improve stats
 - try to fix issues when moving fast underground
+- allow user to resize areas
 
 ## About
 
