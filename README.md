@@ -18,6 +18,6 @@ Enjoy!
 - geofencing: log events
 - dashboard: add stats
 
-## Author
+## Author
 
 Seb <seb@mrlem.org>
