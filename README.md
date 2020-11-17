@@ -8,7 +8,7 @@ place.
 ## Features
 
 - simple: no hassle, it just works
-- privacy-safe: keep control of your data: it doesn't get sent to server
+- privacy-safe: keep control of your data - it doesn't get sent to any server (aside from google's usual data collection)
 
 Enjoy!
 
