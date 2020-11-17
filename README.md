@@ -14,9 +14,8 @@ Enjoy!
 
 ## TODO
 
-- geofencing: update fences
-- geofencing: log events
-- dashboard: add stats
+- improve geofences / map synchronization
+- try to fix issues when moving fast underground
 
 ## About
 
